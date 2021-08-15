@@ -19,7 +19,6 @@ public class DepartmentController {
         return new ResponseEntity<>(service.create(department), HttpStatus.CREATED);
     }
 
-
     @GetMapping("/dept/{id}")
     public ResponseEntity<Department> findById(@PathVariable Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);

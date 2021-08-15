@@ -1,18 +1,15 @@
 package io.zipcoder.persistenceapp.models;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
-
 import javax.persistence.*;
 
 @Entity
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String name;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     Employee manager;
 
     public Department() {
@@ -40,11 +37,7 @@ public class Department {
         this.name = name;
     }
 
-    public Employee getManager() {
-        return manager;
-    }
+    public Employee getManager() {return manager;}
 
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
+    public void setManager(Employee manager) {this.manager = manager;}
 }
