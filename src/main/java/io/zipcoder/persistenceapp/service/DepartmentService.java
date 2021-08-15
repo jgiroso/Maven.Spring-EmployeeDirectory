@@ -19,4 +19,20 @@ public class DepartmentService {
         return repository.findOne(id);
     }
 
+    public Iterable<Department> findAll() {
+        return repository.findAll();
+    }
+
+    public Department update(Long id, Department newDepartment) {
+        Department department = repository.findOne(id);
+        department.setName(newDepartment.getName());
+        department.setManager(newDepartment.getManager());
+        return repository.save(department);
+    }
+
+    public Department delete(Long id) {
+        Department department = repository.findOne(id);
+        repository.delete(id);
+        return department;
+    }
 }
