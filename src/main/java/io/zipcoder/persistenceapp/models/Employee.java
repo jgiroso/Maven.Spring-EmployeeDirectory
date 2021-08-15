@@ -1,10 +1,18 @@
 package io.zipcoder.persistenceapp.models;
 
 
-import java.sql.Date;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
+import javax.persistence.*;
+import java.util.Date;
+
+
+@Entity
 public class Employee {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     String firstName;
     String lastName;
@@ -12,6 +20,7 @@ public class Employee {
     String phoneNumber;
     String email;
     Date hireDate;
+    @OneToOne
     Employee manager;
 
     public Employee() {
@@ -83,11 +92,11 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    public Employee getManager() {
-        return manager;
-    }
-
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
+//    public Employee getManager() {
+//        return manager;
+//    }
+//
+//    public void setManager(Employee manager) {
+//        this.manager = manager;
+//    }
 }
