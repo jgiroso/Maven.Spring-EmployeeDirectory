@@ -20,13 +20,14 @@ public class Employee {
     String phoneNumber;
     String email;
     Date hireDate;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "manager_id", referencedColumnName = "id")
     Employee manager;
 
     public Employee() {
     }
 
-    public Employee(Long id, String firstName, String lastName, String title, String phoneNumber, String email, Date hireDate) {
+    public Employee(Long id, String firstName, String lastName, String title, String phoneNumber, String email, Date hireDate, Employee manager) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,6 +35,7 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.hireDate = hireDate;
+        this.manager = manager;
     }
 
     public Long getId() {
@@ -92,11 +94,7 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-//    public Employee getManager() {
-//        return manager;
-//    }
-//
-//    public void setManager(Employee manager) {
-//        this.manager = manager;
-//    }
+    public Employee getManager() {return manager;}
+
+    public void setManager(Employee manager) {this.manager = manager;}
 }
