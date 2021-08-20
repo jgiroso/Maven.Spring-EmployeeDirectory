@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.util.Date;
 
 
@@ -12,22 +13,24 @@ import java.util.Date;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     Long id;
     String firstName;
     String lastName;
     String title;
     String phoneNumber;
     String email;
+//    @Column(name = "local_date_time", columnDefinition = "TIMESTAMP")
     Date hireDate;
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "manager_id", referencedColumnName = "id")
+    @ManyToOne
     Employee manager;
+    @ManyToOne
+    Department department;
 
     public Employee() {
     }
 
-    public Employee(Long id, String firstName, String lastName, String title, String phoneNumber, String email, Date hireDate, Employee manager) {
+    public Employee(Long id, String firstName, String lastName, String title, String phoneNumber, String email, Date hireDate, Employee manager, Department department) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -36,6 +39,17 @@ public class Employee {
         this.email = email;
         this.hireDate = hireDate;
         this.manager = manager;
+        this.department = department;
+    }
+
+    public Employee(Employee employee) {
+        this.firstName = employee.getFirstName();
+        this.lastName = employee.getLastName();
+        this.title = employee.getTitle();
+        this.phoneNumber = employee.getPhoneNumber();
+        this.email = employee.getEmail();
+        this.hireDate = employee.getHireDate();
+        this.department = employee.getDepartment();
     }
 
     public Long getId() {
@@ -97,4 +111,8 @@ public class Employee {
     public Employee getManager() {return manager;}
 
     public void setManager(Employee manager) {this.manager = manager;}
+
+    public Department getDepartment() {return department;}
+
+    public void setDepartment(Department department) {this.department = department;}
 }

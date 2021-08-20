@@ -6,19 +6,23 @@ import javax.persistence.*;
 public class Department {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     Long id;
     String name;
     @OneToOne(cascade=CascadeType.ALL)
-    Employee manager;
+    Employee departmentManager;
 
     public Department() {
     }
 
-    public Department(Long id, String name, Employee manager) {
+    public Department(Long id, String name, Employee departmentManager) {
         this.id = id;
         this.name = name;
-        this.manager = manager;
+        this.departmentManager = departmentManager;
+    }
+
+    public Department(Department department) {
+        this.name = department.getName();
     }
 
     public Long getId() {
@@ -37,7 +41,7 @@ public class Department {
         this.name = name;
     }
 
-    public Employee getManager() {return manager;}
+    public Employee getDepartmentManager() {return departmentManager;}
 
-    public void setManager(Employee manager) {this.manager = manager;}
+    public void setDepartmentManager(Employee departmentManager) {this.departmentManager = departmentManager;}
 }
